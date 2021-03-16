@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './style.css';
 import MyForm from './form';
 import App from './app';
-import Test from './test';
+const Test = React.lazy(() => import('./test'));
 import NotFound from './not-found';
 import Bootstrap from './bootstrap';
+import ContextPage from './context_page';
 import {Route, Link, BrowserRouter as Router, NavLink,Switch} from 'react-router-dom';
 
 const routing = (
@@ -25,12 +26,16 @@ const routing = (
                 <li>
                     <NavLink to="/bootstrap" activeStyle={{color: 'red'}}>bootstrap</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/context" activeStyle={{color: 'red'}}>context</NavLink>
+                </li>
             </ul>
             <Switch>
                 <Route exact path="/" component={App} />
                 <Route path="/form" component={MyForm} />
                 <Route path="/test" component={Test} />
                 <Route path="/bootstrap" component={Bootstrap} />
+                <Route path="/context" component={ContextPage} />
                 <Route component={NotFound} />
             </Switch>
         </div>
