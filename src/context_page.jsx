@@ -1,50 +1,26 @@
-import React, {Context} from "react";
+import React, {Context, useContext, useState} from "react";
 import ReactDOM from "react-dom";
-import {ThemeProvider, ThemeConsumer,themes} from "./context/context";
+import {ThemeContext, themes} from "./context/theme_context";
 
-class ContextPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.toggleContext = this.toggleContext.bind(this);
+const ContextPage = () => {
+    const [theme, setTheme] = useContext(ThemeContext);
+    const toggleContext = () => {
+        setTheme((prevTheme) => {
+            return prevTheme === themes.dark ? themes.light : themes.dark;
+        });
     }
+    return (
+        <div>
+            <h1>Context with provider and consumer</h1>
+            <h3>Theme is: {theme.name}</h3>
+            <div style={{margin: 20,width: 50, height: 50, background: theme.background}}>
+            </div>
+            <button onClick={toggleContext}>
+                Toggle Context
+            </button>
+        </div>
+    );
 
-    toggleContext() {
-        this.setState(state=>({
-            theme: state.theme === themes.dark
-                ? themes.light
-                : themes.dark,
-        }));
-    }
-
-    render() {
-        return (
-            <ThemeProvider>
-                <div>
-                    <h1>Context with provider and consumer</h1>
-                    <ThemeConsumer>
-                        {
-                            theme => {
-                                console.log(theme);
-                                return (
-                                    <div style={{
-                                        // backgroundColor: theme.background,
-                                        // color: theme.foreground,
-                                        width: "50px",
-                                        height: "50px",
-                                        margin: "15px",
-                                    }}>
-                                    </div>
-                                );
-                            }
-                        }
-                    </ThemeConsumer>
-                    <button onClick={this.toggleContext}>
-                        Toggle Context
-                    </button>
-                </div>
-            </ThemeProvider>
-        );
-    }
 }
 
 export default ContextPage;
