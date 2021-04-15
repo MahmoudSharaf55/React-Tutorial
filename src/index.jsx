@@ -7,6 +7,7 @@ import App from './app';
 const Test = React.lazy(() => import('./test'));
 import NotFound from './not-found';
 import Bootstrap from './bootstrap';
+import {ReduxPage} from './redux_page';
 import ContextPage from './context_page';
 import {Route, Link, BrowserRouter as Router, NavLink, Switch} from 'react-router-dom';
 import {ThemeProvider} from "./context/theme_context";
@@ -32,6 +33,9 @@ const routing = (
                     <li>
                         <NavLink to="/context" activeStyle={{color: 'red'}}>context</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/redux" activeStyle={{color: 'red'}}>Redux</NavLink>
+                    </li>
                 </ul>
                 <Switch>
                     <Route exact path="/" component={App}/>
@@ -39,6 +43,7 @@ const routing = (
                     <Route path="/test" component={Test}/>
                     <Route path="/bootstrap" component={Bootstrap}/>
                     <Route path="/context" component={ContextPage}/>
+                    <Route path="/redux" component={ReduxPage}/>
                     <Route component={NotFound}/>
                 </Switch>
             </div>
